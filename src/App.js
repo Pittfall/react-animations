@@ -30,6 +30,7 @@ class App extends Component {
         <h1>React Animations</h1>
         <button className="Button" onClick={this.toggleBlock}>Toggle</button>
         <br />
+
         <Transition in={this.state.showBlock} timeout={300} mountOnEnter unmountOnExit>
           { state => (
             <div style=
@@ -41,10 +42,13 @@ class App extends Component {
                 opacity: state === 'exiting' || state === 'entering' ? 0 : 1
             }} />
           )}
-          
         </Transition>
-        {this.state.modalIsOpen ? <Modal closed={this.closeModal} /> : null}
-        {this.state.modalIsOpen ? <Backdrop /> : null}
+        <Transition in={this.state.modalIsOpen} timeout={300} mountOnEnter unmountOnExit>
+          {state => (
+            <Modal show={state} closed={this.closeModal} />
+          )}
+        </Transition>
+        {this.state.modalIsOpen ? <Backdrop show /> : null}
         <button className="Button" onClick={this.showModal}>Open Modal</button>
         <h3>Animating Lists</h3>
         <List />
